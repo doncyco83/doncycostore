@@ -54,7 +54,7 @@ export default async function Footer() {
               <span className="font-display text-xl tracking-wider">DONCYCO STORE</span>
             </div>
             <p className="text-sm text-white/60 leading-relaxed mb-6 font-body">
-              Penyedia rilisan fisik vintage, piringan hitam (vinyl), kaset pita, CD, dan item kolektibel. Berawal dari lapak gigs ke gigs sejak 2010.
+              Penyedia rilisan fisik vintage, piringan hitam (vinyl), kaset pita, CD, dan item kolektibel yang berawal dari lapak gigs ke gigs sejak 2010.
             </p>
             <div className="flex items-center gap-4">
               {settings.instagram_username && (

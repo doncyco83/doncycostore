@@ -35,10 +35,10 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
     return {
       title: `${product.artist} - ${product.name} (${categoryText}) | DonCyco Store`,
-      description: `Beli rilisan fisik vintage ${product.artist} - ${product.name} (${product.genre}). Lihat detail kondisi fisik, harga, dan ketersediaan stok online di DonCyco Store Yogyakarta.`,
+      description: `Beli rilisan fisik vintage ${product.artist} - ${product.name} (${product.genre}). Lihat detail kondisi fisik, harga, dan ketersediaan stok online di DonCyco Store Semarang.`,
       openGraph: {
         title: `${product.artist} - ${product.name} | DonCyco Store`,
-        description: `Rilisan fisik vintage ${product.artist} - ${product.name} di DonCyco Store Yogyakarta.`,
+        description: `Rilisan fisik vintage ${product.artist} - ${product.name} di DonCyco Store Semarang.`,
         type: "music.album",
       }
     };

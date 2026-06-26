@@ -23,6 +23,18 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Katalog", href: "/katalog" },
@@ -44,7 +56,7 @@ export default function Header() {
           : "bg-transparent py-5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo Section */}
           <Link href="/" className="flex items-center gap-3 group">
@@ -103,11 +115,11 @@ export default function Header() {
 
       {/* Mobile Drawer Overlay */}
       <div
-        className={`fixed inset-0 top-[72px] bg-black z-40 md:hidden transition-transform duration-300 ease-in-out border-t border-white/10 ${
+        className={`fixed inset-0 bg-black z-40 md:hidden transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col p-8 gap-6 h-full justify-between pb-24">
+        <div className="flex flex-col pt-28 px-8 pb-12 gap-6 h-full justify-between overflow-y-auto">
           <nav className="flex flex-col gap-6">
             {navLinks.map((link) => (
               <Link
@@ -132,7 +144,7 @@ export default function Header() {
           <div className="text-center text-xs text-white/40 border-t border-white/5 pt-6">
             <p>DONCYCO STORE © {new Date().getFullYear()}</p>
             <p className="mt-1 font-semibold text-brand-neon/60">
-              EST. 2010 • YOGYAKARTA
+              EST. 2010 • SEMARANG
             </p>
           </div>
         </div>
