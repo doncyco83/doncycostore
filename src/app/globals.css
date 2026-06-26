@@ -2,32 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 8, 6, 13; /* #08060D */
+    --foreground: 255, 255, 255; /* #FFFFFF */
+    
+    --brand-magenta: 183, 19, 113; /* #B71371 */
+    --brand-coral: 240, 128, 8; /* #F08008 */
+    --brand-neon: 226, 251, 97; /* #E2FB61 */
+    --brand-cyan: 0, 188, 212; /* #00BCD4 */
+    --brand-grey: 107, 99, 117; /* #6B6375 */
+  }
+
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+    font-family: var(--font-nunito);
+    overflow-x: hidden;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
+  /* Font Families */
+  .font-display {
+    font-family: 'Nura', Georgia, serif;
+  }
+  
+  .font-body {
+    font-family: var(--font-nunito);
+  }
+
+  /* Glassmorphism card container */
+  .glass-card {
+    background: rgba(107, 99, 117, 0.15); /* Magenta-grey with opacity */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-card-hover:hover {
+    background: rgba(107, 99, 117, 0.25);
+    border-color: rgba(183, 19, 113, 0.4); /* Brand Magenta */
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(183, 19, 113, 0.15);
+  }
+
+  /* Text balance fallback */
   .text-balance {
     text-wrap: balance;
   }
 }
+
+/* Custom Scrollbar to fit dark aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08060D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2D2736;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B71371;
+}
+
+/* Soundwave Waveform Animation */
+@keyframes wave-pulse {
+  0%, 100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-wave-1 { animation: wave-pulse 1.2s infinite ease-in-out; }
+.animate-wave-2 { animation: wave-pulse 1.5s infinite ease-in-out 0.2s; }
+.animate-wave-3 { animation: wave-pulse 1s infinite ease-in-out 0.4s; }
+.animate-wave-4 { animation: wave-pulse 1.3s infinite ease-in-out 0.1s; }
+.animate-wave-5 { animation: wave-pulse 1.6s infinite ease-in-out 0.3s; }
