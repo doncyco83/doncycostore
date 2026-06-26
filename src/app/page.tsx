@@ -79,7 +79,7 @@ export default async function Home() {
           </h1>
           
           <p className="text-base sm:text-lg md:text-xl text-white/70 font-body max-w-2xl leading-relaxed mb-12 text-balance">
-            Mengurasi piringan hitam, kaset pita, CD, dan memorabilia pop culture/merchandise band vintage untuk para penikmat musik sejati. Berakar dari skena bawah tanah Yogyakarta.
+            Mengurasi piringan hitam, kaset pita, CD, dan memorabilia pop culture/merchandise band vintage untuk para penikmat musik sejati. Berakar dari skena bawah tanah Semarang.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
@@ -163,7 +163,7 @@ export default async function Home() {
             </h2>
             <div className="space-y-4 text-sm sm:text-base text-white/70 leading-relaxed font-body">
               <p>
-                Perjalanan DonCyco Store berakar dari kecintaan mendalam pada budaya musik fisik. Lahir di tahun 2010, kami memulai peruntungan sebagai pelapak kecil berpindah-pindah di sela-sela pertunjukan musik lokal di Yogyakarta. Kami percaya rilisan fisik menawarkan pengalaman intim yang tak tergantikan oleh streaming digital.
+                Perjalanan DonCyco Store berakar dari kecintaan mendalam pada budaya musik fisik. Lahir di tahun 2010, kami memulai peruntungan sebagai pelapak kecil berpindah-pindah di sela-sela pertunjukan musik lokal di Semarang. Kami percaya rilisan fisik menawarkan pengalaman intim yang tak tergantikan oleh streaming digital.
               </p>
               <p>
                 Sejak tahun 2016, DonCyco bertransformasi penuh menjadi katalog musik vintage terpercaya. Kami memprioritaskan kualitas pressing, kelengkapan buklet, dan keaslian rilisan. Koleksi kami meliputi piringan hitam legendaris, pita kaset vintage langka, CD audio retro, hingga merchandise band resmi dan action figure kolektibel.

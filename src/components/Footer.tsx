@@ -127,7 +127,7 @@ export default async function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="text-brand-magenta shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-white">Yogyakarta, Indonesia</p>
+                  <p className="font-semibold text-white">Semarang, Indonesia</p>
                   <p className="text-white/60 mb-3">
                     Fokus katalog fisik sejak 2016. Kunjungi markas kami untuk dig-in koleksi vintage terbaik.
                   </p>

@@ -35,6 +35,13 @@ export default function ProductForm({ productId }: ProductFormProps) {
   const [errorMsg, setErrorMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  // Category management states
+  const [categories, setCategories] = useState<any[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState(false);
+  const [showNewCatInput, setShowNewCatInput] = useState(false);
+  const [newCatName, setNewCatName] = useState("");
+  const [addingCat, setAddingCat] = useState(false);
+
   // Fetch product data if editing
   useEffect(() => {
     const fetchProduct = async () => {
@@ -77,6 +84,68 @@ export default function ProductForm({ productId }: ProductFormProps) {
       fetchProduct();
     }
   }, [productId]);
+
+  // Fetch all categories on mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoadingCategories(true);
+        const { data, error } = await supabase
+          .from("categories")
+          .select("*")
+          .order("name", { ascending: true });
+
+        if (data && !error) {
+          setCategories(data);
+        }
+      } catch (err) {
+        console.error("Gagal memuat kategori:", err);
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // Handle adding new custom category inline
+  const handleAddCategory = async () => {
+    if (!newCatName.trim()) return;
+    setAddingCat(true);
+    setErrorMsg("");
+
+    const generatedSlug = newCatName
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, "") // remove special characters
+      .replace(/\s+/g, "-") // replace spaces with hyphens
+      .replace(/-+/g, "-") // collapse multiple hyphens
+      .trim();
+
+    try {
+      const { data, error } = await supabase
+        .from("categories")
+        .insert([{ name: newCatName.trim(), slug: generatedSlug }])
+        .select()
+        .single();
+
+      if (error) {
+        if (error.code === "23505") {
+          setErrorMsg("Kategori dengan nama/slug ini sudah terdaftar.");
+        } else {
+          setErrorMsg(error.message || "Gagal menambahkan kategori baru.");
+        }
+      } else if (data) {
+        setCategories((prev) => [...prev, data]);
+        setFormData((prev) => ({ ...prev, category: data.slug }));
+        setNewCatName("");
+        setShowNewCatInput(false);
+      }
+    } catch (err) {
+      setErrorMsg("Terjadi kesalahan sistem saat mendaftarkan kategori.");
+    } finally {
+      setAddingCat(false);
+    }
+  };
 
   // Auto generate slug from artist + name
   useEffect(() => {
@@ -291,19 +360,54 @@ export default function ProductForm({ productId }: ProductFormProps) {
 
           {/* Category */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold uppercase tracking-widest text-white/60">
-              Kategori Rilisan *
-            </label>
-            <select
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="w-full h-11 px-4 bg-black/40 border border-white/10 rounded-xl text-white font-body focus:outline-none focus:border-brand-magenta focus:ring-4 focus:ring-brand-magenta/10 transition-all text-sm"
-            >
-              <option value="vinyl" className="bg-brand-dark">Vinyl (Piringan Hitam)</option>
-              <option value="kaset" className="bg-brand-dark">Kaset Pita</option>
-              <option value="cd" className="bg-brand-dark">CD (Compact Disc)</option>
-              <option value="action_figure" className="bg-brand-dark">Action Figure / Merch</option>
-            </select>
+            <div className="flex items-center justify-between">
+              <label className="block text-xs font-semibold uppercase tracking-widest text-white/60">
+                Kategori *
+              </label>
+              <button
+                type="button"
+                onClick={() => setShowNewCatInput(!showNewCatInput)}
+                className="text-[10px] text-brand-cyan hover:underline font-semibold uppercase tracking-wider"
+              >
+                {showNewCatInput ? "Batal" : "+ Kategori Baru"}
+              </button>
+            </div>
+
+            {showNewCatInput ? (
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={newCatName}
+                  onChange={(e) => setNewCatName(e.target.value)}
+                  placeholder="Kategori baru, e.g. Boxset, Merchandise"
+                  className="flex-grow h-11 px-4 bg-black/40 border border-white/10 rounded-xl text-white font-body placeholder-white/20 focus:outline-none focus:border-brand-magenta text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={handleAddCategory}
+                  disabled={addingCat}
+                  className="px-4 h-11 bg-brand-cyan text-brand-dark rounded-xl font-display text-xs font-bold uppercase tracking-wider hover:bg-[#00a8be] disabled:opacity-40 transition-all"
+                >
+                  {addingCat ? "..." : "Tambah"}
+                </button>
+              </div>
+            ) : (
+              <select
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                className="w-full h-11 px-4 bg-black/40 border border-white/10 rounded-xl text-white font-body focus:outline-none focus:border-brand-magenta focus:ring-4 focus:ring-brand-magenta/10 transition-all text-sm"
+              >
+                {loadingCategories ? (
+                  <option>Memuat kategori...</option>
+                ) : (
+                  categories.map((cat) => (
+                    <option key={cat.id} value={cat.slug} className="bg-brand-dark">
+                      {cat.name}
+                    </option>
+                  ))
+                )}
+              </select>
+            )}
           </div>
 
           {/* Condition */}

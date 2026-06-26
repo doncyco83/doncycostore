@@ -86,12 +86,6 @@ export default function Header() {
                 )}
               </Link>
             ))}
-            <Link
-              href="/admin"
-              className="ml-4 px-4 py-2 border border-brand-magenta text-white hover:bg-brand-magenta hover:text-white rounded-md text-xs font-semibold uppercase tracking-wider transition-all duration-300"
-            >
-              CMS Admin
-            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -133,14 +127,6 @@ export default function Header() {
                 {link.name}
               </Link>
             ))}
-            <hr className="border-white/10 my-2" />
-            <Link
-              href="/admin"
-              onClick={() => setIsOpen(false)}
-              className="text-xl font-bold tracking-wider uppercase text-brand-magenta flex items-center gap-3"
-            >
-              CMS Admin Dashboard
-            </Link>
           </nav>
 
           <div className="text-center text-xs text-white/40 border-t border-white/5 pt-6">
