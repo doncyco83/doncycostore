@@ -145,15 +145,19 @@ export default async function AboutPage() {
               Buka Peta Lokasi Google Maps <ArrowRight size={14} />
             </a>
 
-            <div className="w-full h-64 rounded-xl overflow-hidden border border-white/10 relative">
+            <div 
+              className="w-full h-64 rounded-xl overflow-hidden border border-white/10 relative"
+              style={{
+                filter: "invert(90%) hue-rotate(180deg) grayscale(100%) contrast(120%)",
+              }}
+            >
               <iframe
                 title="DonCyco Store Live Map"
-                src="https://maps.google.com/maps?q=DonCyco%20Store%20Semarang&t=&z=17&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=-7.0169034,110.4716076&t=&z=17&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{
                   border: 0,
-                  filter: "invert(90%) hue-rotate(180deg) grayscale(100%) contrast(120%)",
                 }}
                 allowFullScreen={false}
                 loading="lazy"
