@@ -49,69 +49,73 @@ export default function Header() {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-black/85 backdrop-blur-md border-b border-white/10 py-3"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo Section */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-12 h-12 overflow-hidden rounded-full border border-brand-magenta/40 group-hover:border-brand-neon transition-colors duration-300">
-              <Image
-                src="/logo.png"
-                alt="DonCyco Store Logo"
-                fill
-                priority
-                sizes="48px"
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <div>
-              <span className="font-display text-xl tracking-wider text-white block">
-                DONCYCO
-              </span>
-              <span className="text-[10px] text-brand-neon tracking-widest uppercase block -mt-1 font-semibold">
-                Vintage & Collectibles
-              </span>
-            </div>
-          </Link>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isOpen
+            ? "bg-transparent py-5"
+            : isScrolled
+              ? "bg-black/85 backdrop-blur-md border-b border-white/10 py-3"
+              : "bg-transparent py-5"
+        }`}
+      >
+        <div className="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo Section */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-12 h-12 overflow-hidden rounded-full border border-brand-magenta/40 group-hover:border-brand-neon transition-colors duration-300">
+                <Image
+                  src="/logo.png"
+                  alt="DonCyco Store Logo"
+                  fill
+                  priority
+                  sizes="48px"
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <div>
+                <span className="font-display text-xl tracking-wider text-white block">
+                  DONCYCO
+                </span>
+                <span className="text-[10px] text-brand-neon tracking-widest uppercase block -mt-1 font-semibold">
+                  Vintage & Collectibles
+                </span>
+              </div>
+            </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative px-4 py-2 text-sm font-medium tracking-wider uppercase transition-colors duration-300 ${
-                  isActive(link.href)
-                    ? "text-brand-neon font-bold"
-                    : "text-white/80 hover:text-brand-neon"
-                }`}
+            {/* Desktop Nav Links */}
+            <nav className="hidden md:flex items-center gap-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-4 py-2 text-sm font-medium tracking-wider uppercase transition-colors duration-300 ${
+                    isActive(link.href)
+                      ? "text-brand-neon font-bold"
+                      : "text-white/80 hover:text-brand-neon"
+                  }`}
+                >
+                  {link.name}
+                  {isActive(link.href) && (
+                    <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-brand-neon" />
+                  )}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-white hover:text-brand-neon p-2 focus:outline-none"
+                aria-label="Toggle menu"
               >
-                {link.name}
-                {isActive(link.href) && (
-                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-brand-neon" />
-                )}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-brand-neon p-2 focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+                {isOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Mobile Drawer Overlay */}
       <div
@@ -149,6 +153,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }

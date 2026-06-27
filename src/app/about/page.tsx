@@ -148,7 +148,7 @@ export default async function AboutPage() {
             <div className="w-full h-64 rounded-xl overflow-hidden border border-white/10 relative">
               <iframe
                 title="DonCyco Store Live Map"
-                src="https://maps.google.com/maps?q=Semarang&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=DonCyco%20Store%20Semarang&t=&z=17&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{
