@@ -4,12 +4,14 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Disc } from "lucide-react";
+import { Menu, X, Disc, ShoppingBag } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const { setIsCartOpen, cartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,28 +85,56 @@ export default function Header() {
               </div>
             </Link>
 
-            {/* Desktop Nav Links */}
-            <nav className="hidden md:flex items-center gap-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium tracking-wider uppercase transition-colors duration-300 ${
-                    isActive(link.href)
-                      ? "text-brand-neon font-bold"
-                      : "text-white/80 hover:text-brand-neon"
-                  }`}
-                >
-                  {link.name}
-                  {isActive(link.href) && (
-                    <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-brand-neon" />
-                  )}
-                </Link>
-              ))}
-            </nav>
+            {/* Desktop Nav Links & Cart */}
+            <div className="hidden md:flex items-center gap-6">
+              <nav className="flex items-center gap-2">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`relative px-4 py-2 text-sm font-medium tracking-wider uppercase transition-colors duration-300 ${
+                      isActive(link.href)
+                        ? "text-brand-neon font-bold"
+                        : "text-white/80 hover:text-brand-neon"
+                    }`}
+                  >
+                    {link.name}
+                    {isActive(link.href) && (
+                      <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-brand-neon" />
+                    )}
+                  </Link>
+                ))}
+              </nav>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative text-white hover:text-brand-neon p-2 focus:outline-none transition-colors duration-300"
+                aria-label="Keranjang belanja"
+              >
+                <ShoppingBag size={22} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-brand-magenta text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-pulse">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+            </div>
+
+            {/* Mobile Menu Button & Cart */}
+            <div className="md:hidden flex items-center gap-2">
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative text-white hover:text-brand-neon p-2.5 focus:outline-none transition-colors"
+                aria-label="Keranjang belanja mobile"
+              >
+                <ShoppingBag size={22} />
+                {cartCount > 0 && (
+                  <span className="absolute top-0.5 right-0.5 bg-brand-magenta text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-pulse">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-white hover:text-brand-neon p-2 focus:outline-none"

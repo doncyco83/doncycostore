@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AudioPlayer from "@/components/AudioPlayer";
+import { CartProvider } from "@/context/CartContext";
+import CartDrawer from "@/components/CartDrawer";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -48,12 +50,15 @@ export default function RootLayout({
       <body
         className={`${nunito.variable} font-body bg-brand-dark text-white min-h-screen flex flex-col`}
       >
-        <Header />
-        <main className="flex-grow pt-24">
-          {children}
-        </main>
-        <Footer />
-        <AudioPlayer />
+        <CartProvider>
+          <Header />
+          <main className="flex-grow pt-24">
+            {children}
+          </main>
+          <Footer />
+          <AudioPlayer />
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

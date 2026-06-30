@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { Disc, Search, SlidersHorizontal, ArrowRight } from "lucide-react";
+import AddToCartButton from "@/components/AddToCartButton";
 
 export const revalidate = 10; // Revalidate page data every 10 seconds
 
@@ -203,8 +204,10 @@ export default async function CatalogPage({ searchParams }: CatalogProps) {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-xs text-brand-neon font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      Detail <ArrowRight size={12} />
+                    <div className="flex items-center gap-2">
+                      {product.is_available && (
+                        <AddToCartButton product={product} />
+                      )}
                     </div>
                   </div>
                 </div>

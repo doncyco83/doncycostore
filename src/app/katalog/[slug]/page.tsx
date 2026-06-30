@@ -3,8 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import ImageGallery from "@/components/ImageGallery";
-import { ArrowLeft, MessageCircle, AlertCircle, Disc, Calendar, Tag, HardDrive, Info } from "lucide-react";
+import { ArrowLeft, Disc, Calendar, Tag, HardDrive, Info } from "lucide-react";
 import type { Metadata } from "next";
+import ProductActionArea from "@/components/ProductActionArea";
 
 export const revalidate = 10; // Revalidate dynamic product pages every 10 seconds
 
@@ -230,31 +231,20 @@ Apakah barangnya masih ready? Terima kasih.`;
             </div>
           )}
 
-          {/* CTA Purchase Button */}
-          <div className="pt-6 border-t border-white/5">
-            {product.is_available ? (
-              <a
-                href={whatsappCheckoutUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-4 bg-brand-neon text-brand-dark hover:bg-[#d4e540] font-display text-base font-bold uppercase tracking-wider rounded-full transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_8px_24px_rgba(226,251,97,0.3)] hover:scale-[1.01]"
-              >
-                <MessageCircle size={22} className="fill-current" />
-                Beli / Tanya Detail via WhatsApp
-              </a>
-            ) : (
-              <button
-                disabled
-                className="w-full py-4 bg-white/5 border border-white/10 text-white/30 font-display text-base font-bold uppercase tracking-wider rounded-full cursor-not-allowed flex items-center justify-center gap-3"
-              >
-                <AlertCircle size={22} />
-                Stok Habis Terjual
-              </button>
-            )}
-            <p className="text-[10px] text-white/40 font-body text-center mt-3 leading-normal">
-              *Menekan tombol di atas akan mengarahkan Anda ke ruang chat WhatsApp Admin DonCyco Store dengan pesan otomatis produk yang dipilih.
-            </p>
-          </div>
+          {/* Product Actions (Add to Cart / Buy Now via WhatsApp) */}
+          <ProductActionArea
+            product={{
+              id: product.id,
+              artist: product.artist,
+              name: product.name,
+              price: product.price,
+              images: product.images,
+              category: product.category,
+              slug: product.slug,
+              is_available: product.is_available,
+            }}
+            whatsappCheckoutUrl={whatsappCheckoutUrl}
+          />
         </div>
       </div>
     </div>
